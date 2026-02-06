@@ -136,7 +136,7 @@ affordances = [line.strip() for line in f]
 3. 取 Top-K 类别索引集合
 4. 若 GT 类别在集合内则计为正确
 5. 最终根据如下公式：  
-    $Accuracy@K = \frac{\#\{\mathrm{GT}\  \\in \ \mathrm{TopK}\}}{N}$
+    $Accuracy@K = \frac{\mathrm{GT}\  in \ \mathrm{TopK}}{N}$
 ### 5.2 AP / mAP（Attribute & Affordance）
 对某个 attribute / affordance prompt：
 1. 构造 rank list：`[(similarity, gt_label), ...]`
