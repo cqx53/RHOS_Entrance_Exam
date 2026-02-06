@@ -6,9 +6,37 @@
 - **Attribute Prediction：mAP (114 attributes)**
 - **Affordance Prediction：mAP (170 affordances)**
 
-核心思路：将类别/属性/可供性转成文本 prompt，CLIP 分别编码图像与文本，计算余弦相似度排序，再据此计算 Top-K 或 mAP。
+核心思路：将类别/属性/可供性转成文本 prompt，CLIP 分别编码图像与文本，计算余弦相似度排序，再据此计算 Top-K 或 mAP
 
----
+
+## 0. 配置环境
+首先[安装miniforge](https://blog.csdn.net/lhyyds/article/details/139448689)
+
+接着检查`cuda`版本
+```bash
+nvcc -V
+```
+如果版本不是12.1那就把以下两行贴到你的`.bashrc`最后面
+```bash
+# >>> CUDA 12.1 >>>
+export PATH=/usr/local/cuda-12.1/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda-12.1/lib64:$LD_LIBRARY_PATH
+# <<< CUDA 12.1 <<<
+```
+
+其次创建环境
+```bash
+conda create -n myenv python=3.12
+```
+
+又次安装`torch` `torchvision` `torchaudio`以及`torchmetrics`
+```bash
+pip install torch==2.3.0+cu121 torchvision==0.18.0+cu121 torchaudio==2.3.0+cu121 -f https://download.pytorch.org/whl/torch_stable.html
+```
+和
+```bash
+pip install torchmetrics
+```
 
 ## 1. 数据与文件
 
@@ -148,3 +176,6 @@ python train.py
 3. [理解什么是mAP，不过我觉得没上面那篇写的好](https://blog.csdn.net/leviopku/article/details/80835929)
 4. [理解什么是mAP，这篇必须夯爆，夯中之夯](https://blog.csdn.net/hsqyc/article/details/81702437)
 
+## 如果你遇到这些bug...
+- [`torch.__version__`的`torch`版本和`conda list`的`torch`版本不一致](https://blog.csdn.net/qq_40349484/article/details/143893420)
+-> 直接创建一个新环境然后把需要的包再下一次比较快。。。
